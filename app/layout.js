@@ -1,3 +1,4 @@
+import Header from "./_components/Header";
 import Logo from "./_components/Logo";
 import Navigation from "./_components/navigation";
 import "@/app/_styles/globals.css";
@@ -22,14 +23,12 @@ export default function RootLayout({ children }) {
   return (
     <html>
       <body
-        className={`${josefin.className} bg-primary-950  text-primary-100 min-h-screen`}
+        className={`${josefin.className} bg-primary-950 flex flex-col  text-primary-100 min-h-screen`}
       >
-        <header>
-          <Logo />
-        </header>
-        <Navigation />
-        <main>{children}</main>
-        <footer>Footer</footer>
+        <Header />
+        <div className="flex-1 px-8 py-12">
+          <main className="max-w-7xl  mx-auto ">{children}</main>
+        </div>
       </body>
     </html>
   );
