@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  distDir: "build",
   images: {
     remotePatterns: [
       {
@@ -10,6 +11,7 @@ const nextConfig = {
       },
     ],
   },
+  output: "export",
 };
 
 export default nextConfig;
