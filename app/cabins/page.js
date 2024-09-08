@@ -1,8 +1,13 @@
+import { Suspense } from "react";
 import CabinList from "../_components/CabinList";
+import Spinner from "../_components/Spinner";
+
+export const revalidate = 3600;
 
 export const metadata = {
   title: "Cabins",
 };
+
 
 export default async function Page() {
   // CHANGE
@@ -20,8 +25,9 @@ export default async function Page() {
         home away from home. The perfect spot for a peaceful, calm vacation.
         Welcome to paradise.
       </p>
-
-      <CabinList />
+      <Suspense fallback={<Spinner />}>
+        <CabinList />
+      </Suspense>
     </div>
   );
 }
