@@ -1,13 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
+import bg from "@/public/bg.png";
 
 export default function Page() {
   return (
     <main className="mt-24">
       <Image
-        src="/bg.png"
+        src={bg}
         fill
-        className="object-cover h-full"
+        placeholder="blur"
+        quality={90}
+        className="object-cover h-full "
         alt="Mountains and forests with two cabins"
       />
 
