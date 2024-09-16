@@ -16,7 +16,7 @@ function isAlreadyBooked(range, datesArr) {
 }
 
 function DateSelector({ settings, bookedDates, cabin }) {
-  const { range, setRange } = useReservation();
+  const { range, setRange, resetRange } = useReservation();
 
   // CHANGE
   const regularPrice = 23;
@@ -79,7 +79,7 @@ function DateSelector({ settings, bookedDates, cabin }) {
         {range.from || range.to ? (
           <button
             className="border border-primary-800 py-2 px-4 text-sm font-semibold"
-            onClick={() => resetRange()}
+            onClick={resetRange}
           >
             Clear
           </button>
