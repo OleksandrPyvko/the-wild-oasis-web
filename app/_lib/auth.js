@@ -8,6 +8,12 @@ const authConfig = {
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
     }),
   ],
+  callbacks: {
+    // matcher from middleware.js hits it when route matches
+    authorized({ auth, request }) {
+      return !!auth?.user;
+    },
+  },
 };
 
 export const {
