@@ -1,11 +1,13 @@
 "use client";
 import { useState } from "react";
 
-function UpdateprofileForm({ children }) {
+function UpdateProfileForm({ guest, children }) {
   const [count, setCount] = useState();
 
-  const countryFlag = "pt.jpg";
-  const nationality = "portugal";
+  const { fullName, email, nationality, nationalID, countryFlag } = guest;
+
+  // const countryFlag = "pt.jpg";
+  // const nationality = "portugal";
 
   return (
     <form className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col">
@@ -13,6 +15,7 @@ function UpdateprofileForm({ children }) {
         <label>Full name</label>
         <input
           disabled
+          defaultValue={fullName}
           className="px-5 py-3 bg-primary-200 text-primary-800 w-full shadow-sm rounded-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
         />
       </div>
@@ -35,7 +38,7 @@ function UpdateprofileForm({ children }) {
           />
         </div>
       </div>
-        {children}
+      {children}
 
       <div className="space-y-2">
         <label htmlFor="nationalID">National ID number</label>
@@ -54,4 +57,4 @@ function UpdateprofileForm({ children }) {
   );
 }
 
-export default UpdateprofileForm;
+export default UpdateProfileForm;
