@@ -53,7 +53,6 @@ export async function getGuest(email) {
     .eq("email", email)
     .single();
 
-  // Handling the possibility of no guest in the sign in callback
   return data;
 }
 
@@ -75,7 +74,6 @@ export async function getBooking(id) {
 export async function getBookings(guestId) {
   const { data, error, count } = await supabase
     .from("bookings")
-    // We actually also need data on the cabins as well. But let's ONLY take the data that we actually need, in order to reduce downloaded data.
     .select(
       "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)"
     )
@@ -143,8 +141,7 @@ export async function getCountries() {
   }
 }
 
-/////////////
-// CREATE
+
 
 export async function createGuest(newGuest) {
   const { data, error } = await supabase.from("guests").insert([newGuest]);
@@ -161,7 +158,6 @@ export async function createBooking(newBooking) {
   const { data, error } = await supabase
     .from("bookings")
     .insert([newBooking])
-    // So that the newly created object gets returned!
     .select()
     .single();
 
@@ -173,10 +169,7 @@ export async function createBooking(newBooking) {
   return data;
 }
 
-/////////////
-// UPDATE
 
-// The updatedFields is an object which should ONLY contain the updated data
 export async function updateGuest(id, updatedFields) {
   const { data, error } = await supabase
     .from("guests")
@@ -207,8 +200,6 @@ export async function updateBooking(id, updatedFields) {
   return data;
 }
 
-/////////////
-// DELETE
 
 export async function deleteBooking(id) {
   const { data, error } = await supabase.from("bookings").delete().eq("id", id);
