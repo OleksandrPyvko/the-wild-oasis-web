@@ -1,23 +1,23 @@
 import { updateReservation } from "@/app/_lib/actions.js";
+import { getBooking } from "@/app/_lib/data-service.js";
+import { getCabin } from "@/app/_lib/data-service.js";
 
-export default function Page(params) {
-  const maxCapacity = 23;
-
-  
-
-  const id = params.params.editId;
+export default async function Page({ params }) {
+  const { editId } = params;
+  const { numGuests, observations, cabinId } = await getBooking(editId);
+  const { maxCapacity } = await getCabin(cabinId);
 
   return (
     <div>
       <h2 className="font-semibold text-2xl text-accent-400 mb-7">
-        Edit Reservation #{id}
+        Edit Reservation #{editId}
       </h2>
 
       <form
         action={updateReservation}
         className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
       >
-        <input className="hidden" name="bookingId" defaultValue={id}></input>
+        <input className="hidden" name="editId" defaultValue={editId}></input>
         <div className="space-y-2">
           <label htmlFor="numGuests">How many guests?</label>
           <select

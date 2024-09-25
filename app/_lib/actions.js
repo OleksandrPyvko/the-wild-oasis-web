@@ -62,7 +62,7 @@ export async function deleteReservation(bookingId) {
 }
 
 export async function updateReservation(formData) {
-  const bookingId = formData.get("bookingId");
+  const editId = formData.get("editId");
   const numGuests = formData.get("numGuests");
   const observations = formData.get("observations");
   const newData = { numGuests, observations };
@@ -70,7 +70,7 @@ export async function updateReservation(formData) {
   const { data, error } = await supabase
     .from("bookings")
     .update(newData)
-    .eq("id", bookingId)
+    .eq("id", editId)
     .select()
     .single();
 
