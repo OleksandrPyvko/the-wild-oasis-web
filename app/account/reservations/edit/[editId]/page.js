@@ -1,15 +1,23 @@
-export default function Page() {
-  // CHANGE
-  const reservationId = 23;
+import { updateReservation } from "@/app/_lib/actions.js";
+
+export default function Page(params) {
   const maxCapacity = 23;
+
+  
+
+  const id = params.params.editId;
 
   return (
     <div>
       <h2 className="font-semibold text-2xl text-accent-400 mb-7">
-        Edit Reservation #{reservationId}
+        Edit Reservation #{id}
       </h2>
 
-      <form className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col">
+      <form
+        action={updateReservation}
+        className="bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col"
+      >
+        <input className="hidden" name="bookingId" defaultValue={id}></input>
         <div className="space-y-2">
           <label htmlFor="numGuests">How many guests?</label>
           <select

@@ -141,8 +141,6 @@ export async function getCountries() {
   }
 }
 
-
-
 export async function createGuest(newGuest) {
   const { data, error } = await supabase.from("guests").insert([newGuest]);
 
@@ -168,7 +166,6 @@ export async function createBooking(newBooking) {
 
   return data;
 }
-
 
 export async function updateGuest(id, updatedFields) {
   const { data, error } = await supabase
@@ -199,7 +196,6 @@ export async function updateBooking(id, updatedFields) {
   }
   return data;
 }
-
 
 export async function deleteBooking(id) {
   const { data, error } = await supabase.from("bookings").delete().eq("id", id);
