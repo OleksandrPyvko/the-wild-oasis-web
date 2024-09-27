@@ -62,10 +62,22 @@ export async function deleteReservation(bookingId) {
 }
 
 export async function updateReservation(formData) {
-  const editId = formData.get("editId");
-  const numGuests = formData.get("numGuests");
-  const observations = formData.get("observations");
-  const newData = { numGuests, observations };
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+  const editId = Number(formData.get("editId"));
+
+  const guestBookings = await getBookings(session.user.guestId);
+  const guestBookingIds = guestBookings.map((bookings) => bookings.id);
+
+  if (!guestBookingIds.includes(editId))
+    throw new Error("You are not allowed to delete this booking");
+
+  // const numGuests = formData.get("numGuests");
+  // const observations = formData.get("observations");
+  const newData = {
+    numGuests: Number(formData.get("numGuests")),
+    observations: formData.get("observations").slice(0, 1000),
+  };
 
   const { data, error } = await supabase
     .from("bookings")
@@ -79,8 +91,7 @@ export async function updateReservation(formData) {
     throw new Error("Booking could not be updated");
   }
 
-  // TODO
-  // pritect from updating by another user
-  revalidatePath("/account/reservations/edit/");
+  revalidatePath(`/account/reservations/edit/${editId}`);
+  revalidatePath(`/account/reservations/`);
   redirect("/account/reservations/");
 }
