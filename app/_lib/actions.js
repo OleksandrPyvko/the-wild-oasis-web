@@ -95,3 +95,25 @@ export async function updateReservation(formData) {
   revalidatePath(`/account/reservations/`);
   redirect("/account/reservations/");
 }
+
+export async function createBooking(bookingData, formData) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  // TO GET ALL THE DATA FROM FORM DATA AND STORE IT INTO OBJECT
+  // const formValues =  Object.entries(formData.entries)
+
+  const newBooking = {
+    ...bookingData,
+    guestId: session.user.guestId,
+    numGuests: Number(formData.get("numGuests")),
+    observations: formData.get("observations").slice(0, 1000),
+    extrasPrice: 0,
+    totalPrice: bookingData.cabinPrice,
+    isPaid: false,
+    hasBreakfast: false,
+    status: "unconfirmed",
+  };
+
+  console.log(newBooking);
+}
